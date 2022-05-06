@@ -1,4 +1,4 @@
-# Phawk
+# Phawk \[INACTIVE\]
 <p>
 Phawk is a socket.py overlay with simplified syntax.
 </p>
