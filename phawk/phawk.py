@@ -28,22 +28,23 @@ class UDP:
         buffer = kwargs.get('buffer')
         exclusive = kwargs.get('excl')
 
-        # [NEEDS MORE TESTING LATER] if exclusive: # check if exclusive kwarg is set to true
-        '''
+        if excl == "y":
             sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            sock.bind(self.lip, self.lport)
+            sock.bind(self.listen_ip, self.listen_port)
             while True:
                 received_data, address = sock.recvfrom(int(buffer))
-                if (address[0] == self.ip) and (address[1] == self.port):
+                if (address[0] == self.ip):
                     print(f"[{address}] -> hawk.get: {received_data}")    
                 else:
                     pass
             sock.close()
-        '''
-        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        sock.bind((self.listen_ip, self.listen_port))
-        while True:
-            received_data, address = sock.recvfrom(int(buffer))
-            print(f"[{address}] -> hawk.get: {received_data.decode('utf-8')}")
-        sock.close()
+        elif excl == "n":
+            sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            sock.bind((self.listen_ip, self.listen_port))
+            while True:
+                received_data, address = sock.recvfrom(int(buffer))
+                print(f"[{address}] -> hawk.get: {received_data.decode('utf-8')}")
+            sock.close()
+        else:
+            print("Bad kwarg used for /exclusive/. Please only enter y/n as a kwarg.")
 
